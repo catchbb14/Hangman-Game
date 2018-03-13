@@ -7,7 +7,7 @@
 }
 
 body {
-    background: url(../Images/background.jpg);
+    background: url(../../Images/Hangman/background.jpg);
     background-size: 100% 900px;
     background-repeat: no-repeat;
     font-family: 'Indie Flower', cursive;

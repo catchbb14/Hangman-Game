@@ -7,6 +7,8 @@
      var wordsUsed = [];
      var currentGame;
      var imagePath;
+     var audioElement = document.createElement("audio");
+    audioElement.setAttribute('src', 'Assets/Audio/Good_Vibrations.mp3');
 
     var wins = 0;
     var losses = 0;
@@ -27,12 +29,15 @@
         incorrectLetter(letter) {
             this.lettersIncorrect.push(letter);
             this.guessesLeft--;
+            this.changeImageIncorrect();
             if(this.guessesLeft==0) {
                 losses++;
-                alert("You have lost... unfortunately you will not be able to join the fun.")
+                alert("You have lost... unfortunately you will not be able to join the fun.");
+                document.getElementById("hangman").setAttribute("class", "card-img-top text-center" );
+                document.getElementById("hangman").setAttribute('style',"height:386px; width:267px;");
             }
             this.displayIncorrectLetters(letter);
-            this.changeImageIncorrect();
+            
             document.getElementById("guesses-left").innerHTML = this.guessesLeft;
         }
 
@@ -132,7 +137,13 @@
             document.getElementById("hangman").setAttribute('src',imagePath);
             document.getElementById("hangman").setAttribute('class',"card-img-top text-center");
             document.getElementById("hangman").setAttribute('style',"height:386px; width:267px;");
+        }
 
+        changeImageLoss() {
+            imagePath = 'Assets/Images/Hangman/hangman-loss.png';
+            document.getElementById("hangman").setAttribute('src',imagePath);
+            document.getElementById("hangman").setAttribute('class',"card-img-top text-center");
+            document.getElementById("hangman").setAttribute('style',"height:386px; width:267px;");
         }
 
         checkVictory(text) {
@@ -140,7 +151,8 @@
                 this.changeImageVictory();
                 wins++;
                 this.victory = true;
-                alert("You have won! Enjoy your day at the beach!")
+                alert("You have won! Enjoy your day at the beach!");
+                audioElement.play();
             }
         }
 
@@ -188,6 +200,7 @@
     function resetGame() {
         var wordChosen;
         textToDisplay = "";
+        audioElement.pause();
 
         function chooseWord() {
             words = shuffle(words);
